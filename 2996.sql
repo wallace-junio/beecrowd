@@ -31,3 +31,12 @@ insert into packages(id_user_sender,id_user_receiver, color, year) values(2,1,'g
 insert into packages(id_user_sender,id_user_receiver, color, year) values(3,4,'red',2015);
 insert into packages(id_user_sender,id_user_receiver, color, year) values(4,3,'blue',2019);
 
+
+select packages.year, u1.name as sender, u2.name as receiver
+from packages join
+     users u1
+     on packages.id_user_sender = u1.id join
+     users u2
+     on packages.id_user_receiver = u2.id
+where (packages.year = 2015 or packages.color like 'blue')
+     AND u2.address <> 'Taiwan' order by packages.year desc;
