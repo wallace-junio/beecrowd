@@ -206,7 +206,8 @@ VALUES
 ---- RESOLUTION--------
 
 select Bruto.matr, Bruto.nome, ROUND((Bruto.Sal_Bruto-DESCONTO.Descontos),2) as salario from 
-(
+(       
+        ---Trazendo salario Bruto  
 	select B.matr, E.Nome, B.valor as Sal_Bruto from empregado E 
 	inner join 
 	(
