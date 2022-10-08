@@ -1,3 +1,5 @@
+---Developed by owallacejr
+
 
 CREATE TABLE departamento(
     cod_dep int,
@@ -201,7 +203,7 @@ VALUES
 (13, 'Gratificacao por Titularidade - Mestrado', 'V', 800.00);
 
 
----- RESOLUTIONS --------
+---- RESOLUTION--------
 
 select Bruto.matr, Bruto.nome, ROUND((Bruto.Sal_Bruto-DESCONTO.Descontos),2) as salario from 
 (
