@@ -229,13 +229,3 @@ inner join
 	) as C on C.matr=E.matr
 ) as DESCONTO
 on BRUTO.matr=DESCONTO.matr
-
-
-
-
-
-
-
-
-
-
