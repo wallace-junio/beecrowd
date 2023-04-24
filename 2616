@@ -1,0 +1,5 @@
+select customers.id, customers.name from customers 
+left join locations 
+on customers.id = locations.id_customers 
+where locations.locations_date is null 
+order by customers.id 
