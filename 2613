@@ -1,0 +1,5 @@
+select mov.id, mov.name
+FROM movies mov
+INNER JOIN prices pric
+ON mov.id_prices = pric.id
+WHERE pric.value < 2;
