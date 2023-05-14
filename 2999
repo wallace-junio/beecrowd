@@ -1,0 +1,40 @@
+Development by Wallace jr
+
+with base as (
+   select empregado.matr, sum(vencimento.valor) as valor
+   from empregado
+   join emp_venc ON emp_venc.matr = empregado.matr
+   join vencimento ON vencimento.cod_venc = emp_venc.cod_venc
+   group by empregado.matr
+ ), desconto as (
+   select empregado.matr, sum(desconto.valor) as valor
+   from empregado
+   join emp_desc ON emp_desc.matr = empregado.matr
+   join desconto ON desconto.cod_desc = emp_desc.cod_desc
+   group by empregado.matr
+ ), salario as (
+   select empregado.matr, coalesce(base.valor, 0) - coalesce(desconto.valor, 0) as valor
+   from empregado
+   left join base on base.matr = empregado.matr
+   left join desconto on desconto.matr = empregado.matr
+ ), medias as (
+   select divisao.cod_divisao, round(avg(salario.valor), 2) as valor from salario
+   join empregado on empregado.matr = salario.matr
+   join divisao ON divisao.cod_divisao = empregado.lotacao_div
+   group by divisao.cod_divisao
+ )
+ select
+   empregado.nome,
+   salario.valor,
+   medias.valor as media_divisao,
+   departamento.nome as nome_departamento,
+   divisao.nome as nome_divisao
+ from salario
+ join empregado on empregado.matr = salario.matr
+ join medias on medias.cod_divisao = empregado.lotacao_div
+ join divisao on divisao.cod_divisao = empregado.lotacao_div
+ join departamento on departamento.cod_dep = empregado.lotacao
+ where salario.valor > medias.valor
+ order by salario.valor desc
+
+
